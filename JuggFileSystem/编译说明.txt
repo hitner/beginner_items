@@ -1,0 +1,4 @@
+1,原工程在VS2010下开发编译
+    注意：Runtime library选择 Multi-threaded Dll（/MD）
+    Runtime library位置为Configuration Properties -> C/C++ -> Code Generation -> Runtime library
+2，v1.01
