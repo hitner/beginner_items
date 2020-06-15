@@ -2,16 +2,16 @@
 //
 
 #include "stdafx.h"
-#include "boost/parameter.hpp"
-#include "boost/lambda/lambda.hpp"
+//#include "boost/parameter.hpp"
+//#include "boost/lambda/lambda.hpp"
 
 #include <iostream>
 #include <iterator>
 #include <algorithm>
 
-#include <boost/program_options.hpp>
+//#include <boost/program_options.hpp>
 using namespace std;
-
+/*
 void learn_lambda()
 {
 	using namespace boost::lambda;
@@ -48,8 +48,9 @@ void learn_program_options(int argc, char * argv[])
 	}
 
 }
+*/
 int _tmain(int argc, _TCHAR* argv[])
 {
-	learn_program_options(argc, argv);
+	//learn_program_options(argc, argv);
 	return 0;
 }

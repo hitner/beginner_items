@@ -1,6 +1,8 @@
 //#include "stdafx.h"
 #include "warlogic.h"
 #include "windows.h"
+#include <cstdio>
+#include "lzbase/lzbase.h"
 
 BOOL CWarLogic::IsWarcraft()
 {
@@ -33,6 +35,43 @@ CWarLogic::CWarLogic()
 
 BOOL CWarLogic::HandleKeyMap(WPARAM wParam, LPARAM lParam)
 {
+  MessageBox(NULL, L"asdf", NULL, 0);
+	LPMSG msg = (LPMSG)lParam;
+	OutputInVS(L"message %ld\n", msg->message);
+	if (msg->message == WM_IME_NOTIFY)
+	{
+		OutputInVS(L"message IME_NOTIFY \n");
+	}
+	else if (msg->message == WM_IME_SETCONTEXT) {
+		OutputInVS(L"message IME_SETCONTEXT\n");
+	}
+	else if (msg->message == WM_IME_CONTROL) {
+		OutputInVS(L"message WM_IME_CONTROL\n");
+	}
+	else if (msg->message == WM_IME_COMPOSITIONFULL
+|| WM_IME_COMPOSITION == msg->message) {
+		OutputInVS(L"message WM_IME_COMPOSITIONFULL\n");
+	}
+	else if (msg->message == WM_IME_SELECT) {
+		OutputInVS(L"message WM_IME_SELECT\n");
+	}
+	else if (msg->message == WM_IME_CHAR) {
+		OutputInVS(L"message WM_IME_CHAR\n");
+	}
+	else if (msg->message == WM_IME_REQUEST) {
+		OutputInVS(L"message WM_IME_REQUEST\n");
+	}
+	else if (msg->message == WM_SETFOCUS) {
+		OutputInVS(L"message WM_SETFOCUS\n");
+	}
+	else if (msg->message == WM_IME_STARTCOMPOSITION) {
+		OutputInVS(L"message WM_IME_STARTCOMPOSITION\n");
+	}
+	
+	
+	
+	return TRUE;
+
 	if (lParam & 0x20000000) //0x0010 0 ... 0
 	{
 		return FALSE; //alt is down

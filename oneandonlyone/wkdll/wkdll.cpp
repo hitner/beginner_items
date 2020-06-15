@@ -32,7 +32,7 @@ extern "C"
 		}
 		
 		static CWarLogic warlogic;
-		if (!warlogic.IsWarcraft())
+		/*if (!warlogic.IsWarcraft())
 		{
 			return CallNextHookEx(NULL, nCode, wParam, lParam);
 		}
@@ -40,17 +40,18 @@ extern "C"
 		if (warlogic.IsChatState())
 		{
 			return CallNextHookEx(NULL, nCode, wParam, lParam);
-		}
+		}*/
 		//InitSettings();
 		if (nCode == HC_ACTION /*|| nCode == HC_NOREMOVE*/)
 		{
-			if (warlogic.HandleKeyMap(wParam, lParam))
-			{
-				return 1;
-			}
-			else {
+      warlogic.HandleKeyMap(wParam, lParam);
+			//if (warlogic.HandleKeyMap(wParam, lParam))
+			//{
+			//	return 1;
+			//}
+			//else {
 				return CallNextHookEx(NULL, nCode, wParam, lParam);
-			}
+			//}
 		}
 		/*else if (nCode == HC_NOREMOVE)
 		{
