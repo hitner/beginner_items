@@ -33,6 +33,9 @@
     <ClInclude Include="install-war-key-dll.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="send_input.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -42,6 +45,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="install-war-key-dll.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="send_input.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

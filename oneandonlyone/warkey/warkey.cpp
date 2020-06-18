@@ -4,13 +4,16 @@
 #include "stdafx.h"
 #include "warkey.h"
 #include "install-war-key-dll.h"
+#include "send_input.h"
+#include <memory>
+
 #define MAX_LOADSTRING 100
 
 // Global Variables:
 HINSTANCE hInst;								// current instance
 TCHAR szTitle[MAX_LOADSTRING];					// The title bar text
 TCHAR szWindowClass[MAX_LOADSTRING];			// the main window class name
-HWND openButton, closeButton;
+HWND openButton, closeButton, sendInputButton;
 // Forward declarations of functions included in this code module:
 ATOM				MyRegisterClass(HINSTANCE hInstance);
 BOOL				InitInstance(HINSTANCE, int);
@@ -24,6 +27,8 @@ int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
 {
 	UNREFERENCED_PARAMETER(hPrevInstance);
 	UNREFERENCED_PARAMETER(lpCmdLine);
+
+
 
  	// TODO: Place code here.
 	MSG msg;
@@ -42,7 +47,7 @@ int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
 
 	hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_WARKEY));
 
-	InstallWarKeyHook();
+	//InstallWarKeyHook();
 	// Main message loop:
 	while (GetMessage(&msg, NULL, 0, 0))
 	{
@@ -111,6 +116,10 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 	   10, 10, 100, 100, hWnd, NULL, hInstance, NULL);
    closeButton = CreateWindow(L"BUTTON", L"Close", WS_TABSTOP | WS_VISIBLE | WS_CHILD | BS_DEFPUSHBUTTON,
 	   120, 10, 100, 100, hWnd, NULL, hInstance, NULL);
+
+   sendInputButton = CreateWindow(L"BUTTON", L"SendInput", WS_TABSTOP | WS_VISIBLE | WS_CHILD | BS_DEFPUSHBUTTON,
+     10, 120, 100, 100, hWnd, NULL, hInstance, NULL);
+
    ShowWindow(hWnd, nCmdShow);
    UpdateWindow(hWnd);
 
@@ -162,6 +171,10 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 				TextOut(hdc2, 100, 120, L"Œ¥∆Ù”√", 3);
 				::ReleaseDC(hWnd, hdc2);
 			}
+      else if (lParam == (LPARAM)sendInputButton)
+      {
+        SimulateSendInput();
+      }
 			
 			break;
 		default:

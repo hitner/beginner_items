@@ -35,7 +35,7 @@ CWarLogic::CWarLogic()
 
 BOOL CWarLogic::HandleKeyMap(WPARAM wParam, LPARAM lParam)
 {
-  MessageBox(NULL, L"asdf", NULL, 0);
+  //MessageBox(NULL, L"asdf", NULL, 0);
 	LPMSG msg = (LPMSG)lParam;
 	OutputInVS(L"message %ld\n", msg->message);
 	if (msg->message == WM_IME_NOTIFY)
