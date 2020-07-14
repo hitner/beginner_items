@@ -6,6 +6,7 @@
 #include "install-war-key-dll.h"
 #include "send_input.h"
 #include <memory>
+#include "CaptureScreen.h"
 
 #define MAX_LOADSTRING 100
 
@@ -13,7 +14,7 @@
 HINSTANCE hInst;								// current instance
 TCHAR szTitle[MAX_LOADSTRING];					// The title bar text
 TCHAR szWindowClass[MAX_LOADSTRING];			// the main window class name
-HWND openButton, closeButton, sendInputButton;
+HWND openButton, closeButton, sendInputButton, captureScreen;
 // Forward declarations of functions included in this code module:
 ATOM				MyRegisterClass(HINSTANCE hInstance);
 BOOL				InitInstance(HINSTANCE, int);
@@ -120,6 +121,9 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    sendInputButton = CreateWindow(L"BUTTON", L"SendInput", WS_TABSTOP | WS_VISIBLE | WS_CHILD | BS_DEFPUSHBUTTON,
      10, 120, 100, 100, hWnd, NULL, hInstance, NULL);
 
+   captureScreen = CreateWindow(L"BUTTON", L"CaptureScreen", WS_TABSTOP | WS_VISIBLE | WS_CHILD | BS_DEFPUSHBUTTON,
+     120, 120, 100, 100, hWnd, NULL, hInstance, NULL);
+
    ShowWindow(hWnd, nCmdShow);
    UpdateWindow(hWnd);
 
@@ -174,6 +178,10 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
       else if (lParam == (LPARAM)sendInputButton)
       {
         SimulateSendInput();
+      }
+      else if (lParam == (LPARAM)captureScreen)
+      {
+        CaptureScreen::Capture();
       }
 			
 			break;
