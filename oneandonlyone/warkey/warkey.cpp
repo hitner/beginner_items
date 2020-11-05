@@ -7,6 +7,10 @@
 #include "send_input.h"
 #include <memory>
 #include "CaptureScreen.h"
+#include "lzbase.h"
+#include <set>
+#include <regex>
+#include <cstring>
 
 #define MAX_LOADSTRING 100
 
@@ -21,6 +25,57 @@ BOOL				InitInstance(HINSTANCE, int);
 LRESULT CALLBACK	WndProc(HWND, UINT, WPARAM, LPARAM);
 INT_PTR CALLBACK	About(HWND, UINT, WPARAM, LPARAM);
 
+#define GAMELIVE_JOB_OBJECT L"gamelive_job_object"
+void InitJobControl()
+{
+  std::regex reg = std::regex(".*\\\\steam.exe", std::regex::icase);
+  std::smatch match;
+  std::string orign = "N:\\games\\steam\\steam.exe";
+  bool result = std::regex_match(orign, match, reg);
+
+
+  std::wregex reg2 = std::wregex(L".*\\steam.exe", std::wregex::icase);
+  std::wsmatch  match2;
+  std::wstring orign2 = L"N:\\games\\steam\\steam.exe";
+  bool result2 = std::regex_match(orign2, match2, reg2);
+
+
+
+  HANDLE hwnd = ::GetDesktopWindow();
+  OutputInVS(L"a==b:%xd", hwnd);
+  std::set<int> a;
+  a.insert(3);
+  a.insert(4);
+  a.insert(-4);
+
+  std::set<int> b({ 4, 3,-4 });
+
+  std::set<int> c({ 3,4 ,-4});
+
+  OutputInVS(L"a==b:%d,a==c:%d,b==c:%d\n", a == b, a == c, b == c);
+
+
+  HANDLE jobHandle;// = ::OpenJobObject(JOB_OBJECT_ALL_ACCESS, FALSE, GAMELIVE_JOB_OBJECT);
+  //if (jobHandle == NULL)
+  {
+    //OutputInVS(L"cannot open job object, error code:%d", ::GetLastError());
+    jobHandle = ::CreateJobObject(NULL, GAMELIVE_JOB_OBJECT);
+    if (jobHandle == NULL)
+    {
+      OutputInVS(L"failed to create job object, error code:%d", ::GetLastError());
+    }
+    else {
+      OutputInVS(L"succes to create job object:%xd, error code:%d", jobHandle, ::GetLastError());
+      BOOL assignRet = AssignProcessToJobObject(jobHandle, ::GetCurrentProcess());
+      OutputInVS(L"assign result:%d", assignRet);
+    }
+
+  }
+  //else {
+  //  OutputInVS(L"can job object");
+  //}
+}
+
 int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
                      _In_opt_ HINSTANCE hPrevInstance,
                      _In_ LPTSTR    lpCmdLine,
@@ -29,9 +84,15 @@ int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
 	UNREFERENCED_PARAMETER(hPrevInstance);
 	UNREFERENCED_PARAMETER(lpCmdLine);
 
+  bool bHide = false;
+  HWND taskHwnd = FindWindow(L"Shell_TrayWnd", NULL);
+  ShowWindow(taskHwnd, bHide ? SW_HIDE : SW_NORMAL);
+  EnableWindow(taskHwnd, !bHide);
 
 
  	// TODO: Place code here.
+  InitJobControl();
+
 	MSG msg;
 	HACCEL hAccelTable;
 
